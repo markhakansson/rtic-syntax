@@ -242,6 +242,9 @@ pub struct SoftwareTask {
 
     /// The task is declared externally
     pub is_extern: bool,
+
+    /// Mark that Rauk will analyze this task
+    pub rauk: bool,
 }
 
 /// Software task metadata
@@ -292,6 +295,9 @@ pub struct HardwareTask {
 
     /// The task is declared externally
     pub is_extern: bool,
+
+    /// Mark that Rauk will analyze this task
+    pub rauk: bool,
 }
 
 /// Hardware task metadata
