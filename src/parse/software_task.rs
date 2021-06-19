@@ -19,6 +19,7 @@ impl SoftwareTask {
             if let Some((context, Ok(inputs))) = util::parse_inputs(item.sig.inputs, &name) {
                 let (locals, stmts) = util::extract_locals(item.block.stmts)?;
                 let (cfgs, attrs) = util::extract_cfgs(item.attrs);
+                let (rauk, attrs) = util::extract_rauk(attrs);
 
                 return Ok(SoftwareTask {
                     args,
@@ -29,6 +30,7 @@ impl SoftwareTask {
                     locals: Local::parse(locals)?,
                     stmts,
                     is_extern: false,
+                    rauk,
                 });
             }
         }
@@ -58,6 +60,7 @@ impl SoftwareTask {
         if valid_signature {
             if let Some((context, Ok(inputs))) = util::parse_inputs(item.sig.inputs, &name) {
                 let (cfgs, attrs) = util::extract_cfgs(item.attrs);
+                let (rauk, attrs) = util::extract_rauk(attrs);
 
                 return Ok(SoftwareTask {
                     args,
@@ -68,6 +71,7 @@ impl SoftwareTask {
                     locals: Map::<Local>::new(),
                     stmts: Vec::<Stmt>::new(),
                     is_extern: true,
+                    rauk,
                 });
             }
         }

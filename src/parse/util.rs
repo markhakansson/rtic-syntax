@@ -72,6 +72,20 @@ pub fn extract_cfgs(attrs: Vec<Attribute>) -> (Vec<Attribute>, Vec<Attribute>) {
     (cfgs, not_cfgs)
 }
 
+pub fn extract_rauk(attrs: Vec<Attribute>) -> (bool, Vec<Attribute>) {
+    let mut not_rauk = vec![];
+    let mut rauk = false;
+
+    for attr in attrs {
+        if attr_eq(&attr, "rauk") {
+            rauk = true;
+        } else {
+            not_rauk.push(attr);
+        }
+    }
+    (rauk, not_rauk)
+}
+
 pub fn extract_locals(stmts: Vec<Stmt>) -> parse::Result<(Vec<ItemStatic>, Vec<Stmt>)> {
     let mut istmts = stmts.into_iter();
 

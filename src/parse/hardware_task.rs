@@ -27,6 +27,7 @@ impl HardwareTask {
                 if rest.is_empty() {
                     let (locals, stmts) = util::extract_locals(item.block.stmts)?;
                     let (cfgs, attrs) = util::extract_cfgs(item.attrs);
+                    let (rauk, attrs) = util::extract_rauk(attrs);
 
                     return Ok(HardwareTask {
                         args,
@@ -36,6 +37,7 @@ impl HardwareTask {
                         locals: Local::parse(locals)?,
                         stmts,
                         is_extern: false,
+                        rauk,
                     });
                 }
             }
@@ -74,6 +76,7 @@ impl HardwareTask {
             if let Some((context, Ok(rest))) = util::parse_inputs(item.sig.inputs, &name) {
                 if rest.is_empty() {
                     let (cfgs, attrs) = util::extract_cfgs(item.attrs);
+                    let (rauk, attrs) = util::extract_rauk(attrs);
 
                     return Ok(HardwareTask {
                         args,
@@ -83,6 +86,7 @@ impl HardwareTask {
                         locals: Map::<Local>::new(),
                         stmts: Vec::<Stmt>::new(),
                         is_extern: true,
+                        rauk,
                     });
                 }
             }
